@@ -205,6 +205,54 @@ responses:
   utter_goodbye:
   - text: Thanks for booking. Have a great stay!
 
+
+
+actions:
+- action_reset
+- action_find_offer
+- action_process_offer
+- reset_form_values
+- validate_book_form
+- action_deactive_sidetrack
+- action_active_sidetrack
+- action_check_for_sidetrack
+forms:
+  book_form:
+    city:
+    - entity: GPE
+      type: from_entity
+    arrival_date:
+    - entity: time
+      type: from_entity
+    num_guests:
+    - entity: number
+      type: from_entity
+    num_nights:
+    - entity: number
+      type: from_entity
+  process_book:
+    breakfast:
+    - intent: breakfast_yes
+      type: from_intent
+      value: true
+    - intent: breakfast_no
+      type: from_intent
+      value: false
+    email:
+    - entity: email
+      type: from_entity
+    payment_method:
+    - intent: payment_on_location
+      type: from_intent
+      value: true
+    - intent: payment_online
+      type: from_intent
+      value: true
+    person_name:
+    - entity: PERSON
+      type: from_entity
+
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
