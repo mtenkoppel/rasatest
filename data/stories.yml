@@ -2,17 +2,29 @@ version: "2.0"
 
 stories:
 
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
 
-  - story: user wants to talk to a human
-    steps:
-    - intent: talk_to_human
-    - action: utter_handover_confirm
-    - intent: yes_talk
-    - action: utter_handover_confirmed
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
 
-  - story: user wants to talk to a human but then canceles
-    steps:
-    - intent: talk_to_human
-    - action: utter_handover_confirm
-    - intent: no_talk
-    - action: utter_handover_aborted
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
