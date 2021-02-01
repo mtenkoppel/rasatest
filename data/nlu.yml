@@ -32,24 +32,7 @@ nlu:
     - bye bye
     - see you later
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
 
 - intent: mood_great
   examples: |
@@ -92,14 +75,7 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- intent: greet
-  examples: |
-    - Hi
-    - Hey!
-    - Hallo
-    - Good day
-    - Good morning
-    - hi
+
 - intent: faq/what_can_you_do
   examples: |
     - what can you help me with?
