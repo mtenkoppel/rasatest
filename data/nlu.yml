@@ -4,7 +4,6 @@ nlu:
 - intent: greet
   examples: |
     - hey
-    - moin
     - hello
     - hi
     - hello there
@@ -32,7 +31,24 @@ nlu:
     - bye bye
     - see you later
 
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
 
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
 
 - intent: mood_great
   examples: |
@@ -74,153 +90,3 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
-
-- intent: faq/what_can_you_do
-  examples: |
-    - what can you help me with?
-    - what can you do?
-    - what commands do you accept?
-    - give me some examples what you can do?
-    - how can you help me?
-- intent: faq/is_there_free_wifi
-  examples: |
-    - is there wifi?
-    - is wireless lan available?
-    - is wifi available?
-    - is there internet in the room?
-    - wifi there?
-    - Internet for free?
-- intent: faq/what_are_opening_hours
-  examples: |
-    - when can i check in?
-    - when is the hotel opened?
-    - what are opening hours?
-    - opening hours?
-    - when can I check out
-    - what is latest time to arrive?
-    - what is latest checkin time?
-    - when is the hotel open?
-- intent: faq/what_does_breakfast_entail
-  examples: |
-    - what is included in breakfast
-    - what is served during breakfast
-    - what can I eat during breakfast
-    - what is available for breakfast
-    - what can i eat in the morning
-    - is yoghurt served during breakfast?
-    - is breakfast vegan?
-    - does breakfast included non-meat products?
-- intent: faq/how_can_i_pay
-  examples: |
-    - can I pay with credit card?
-    - can I pay with bitcoin?
-    - do you accept visa?
-    - do you accept master card?
-    - can I give money with paypal?
-    - how can i pay?
-    - what payment options are there?
-    - payement options
-- intent: faq/where do you have hotels
-  examples: |
-    - Where do you have hotels?
-    - In what cities do you have hotels?
-    - What cities are available?
-    - In what cities can I sleep?
-    - Where are hotels located?
-    - Where are your best hotels?
-    - What cities can I book?
-    - What city can I book?
-
-- intent: chitchat/what_is_your_name
-  examples: |
-    - what is your name?
-    - What are you called?
-    - May I know your name?
-    - How can I call you?
-
-- intent: reset
-  examples: |
-    - reset
-- intent: book_hotel
-  examples: |
-    - I want to book a hotel
-    - I want to stay in a hotel
-    - Book a room
-    - Book a night in your hotel
-    - I want to book a hotel to [Amsterdam](city)
-    - I want to book a hotel to [Berlin](city)
-    - hotel [Amsterdam](city)
-    - hotel [Berlin](city)
-    - hotel
-    - hotel [Berlin](city) for today and 2 nights
-    - hotel [Berlin](city) for 27 july and four nights
-    - hotel [Berlin](city) for 27 july
-- intent: affirm
-  examples: |
-    - yes
-    - yes, please
-    - yup
-- intent: deny
-  examples: |
-    - no don't
-    - no
-- intent: abort
-  examples: |
-    - I want to stop the booking
-    - stop booking
-    - stop
-    - start over
-    - i don't want this any more
-    - abort
-    - cancel process
-    - restart
-    - start over again
-    - cancel
-- intent: talk_to_human
-  examples: |
-    - I want to talk to a human
-    - A human please
-    - Your are not helpful
-    - This does not help me
-    - you are stupid
-    - not helpful
-    - talk to an agent
-    - talk to the hotel directly
-- intent: change_num_nights
-  examples: |
-    - I want to change the number of nights
-    - change number of nights
-    - number of nights
-    - nights
-    - departure
-    - date I have to leave
-    - amount of days I stay
-    - new number of nights
-    - change num nights
-- intent: change_date
-  examples: |
-    - I want to change arrival date
-    - change date i arrive
-    - change day i arrive at hotel
-    - new arrival date
-    - change date
-- intent: change_location
-  examples: |
-    - change hotel
-    - new city
-    - change city
-    - I want a different hotel
-    - I want a differet location
-- intent: inform
-  examples: |
-    - I want to go to [Amsterdam](city)
-    - A hotel in [Berlin](city)
-    - [Amsterdam](city)
-    - [Berlin](city)
-    - 3 November
-    - 10 December
-    - 2 nights
-    - two nights
-    - for 5 nights
-    - 5 nights
