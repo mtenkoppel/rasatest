@@ -8,6 +8,26 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - abort
+  - talk_to_human
+  - change_num_nights
+  - change_date
+  - change_location
+  - book_hotel
+  - faq
+  - chitchat
+  - inform
+  - reset
+  - yes_talk
+  - no_talk
+  - continue_processing_form
+  - breakfast_yes
+  - breakfast_no
+  - payment_on_location
+  - payment_online
+  - ask_question
+  - bookconfirm_yes
+  - bookconfirm_no
 
 
 responses:
