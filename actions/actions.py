@@ -19,6 +19,7 @@ class ActionReset(Action):
 
     def name(self) -> Text:
         return "action_reset"
+    
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
