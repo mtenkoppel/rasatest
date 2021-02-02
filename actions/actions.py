@@ -25,7 +25,6 @@ class ActionReset(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         AllSlotsReset()
         dispatcher.utter_message(text="[Resetted all slots]")
-        print("resetting")
         return [AllSlotsReset()]
 
 
