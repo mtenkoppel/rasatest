@@ -8,15 +8,4 @@ rules:
     - action: utter_welcome_part1
     - action: utter_welcome_part2
 
-  - rule: respond to FAQs type questions
-    steps:
-    - intent: faq
-    - action: utter_faq
-    - action: action_check_for_sidetrack
-
-  - rule: respond to chitchat
-    steps:
-    - intent: chitchat
-    - action: utter_chitchat
-    - action: action_check_for_sidetrack
 
