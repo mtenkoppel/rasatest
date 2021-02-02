@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -9,6 +8,7 @@ nlu:
     - Good day
     - Good morning
     - hi
+    - hello
 - intent: faq/what_can_you_do
   examples: |
     - what can you help me with?
@@ -64,14 +64,12 @@ nlu:
     - Where are your best hotels?
     - What cities can I book?
     - What city can I book?
-
 - intent: chitchat/what_is_your_name
   examples: |
     - what is your name?
     - What are you called?
     - May I know your name?
     - How can I call you?
-
 - intent: reset
   examples: |
     - reset
