@@ -68,6 +68,9 @@ sudo docker run mauricetk/rasa-custom-actions-booking-assistant:custom2 start
 ADMIN PASSWORD RASA GOOGLE CLOUD
 ueRA7xL7ei7TISgOCJ5R
 
+cd /etc/rasa
+sudo python3 rasa_x_commands.py create --update admin me ueRA7xL7ei7TISgOCJ5R
+
 BUILDING A DOCKER IMAGE:
 docker build . -t mauricetk/rasa-custom-actions-booking-assistant:custom3
 docker push mauricetk/rasa-custom-actions-booking-assistant:custom3
@@ -235,6 +238,14 @@ rasa-production:
     image: "mauricetk/rasa-custom-actions-booking-assistant:custom2"
     expose:
       - "5055"
+    depends_on:
+      - rasa-production
+
+  webservice:
+    restart: always
+    image: "mauricetk/webservice:2"
+    expose:
+      - "5000"
     depends_on:
       - rasa-production
 

@@ -232,6 +232,7 @@ actions:
 - action_deactive_sidetrack
 - action_active_sidetrack
 - action_check_for_sidetrack
+- utter_confirm_abort
 forms:
   book_form:
     city:
