@@ -184,7 +184,7 @@ class ActionCheckForSidetrack(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        dispatcher.utter_message(text="[checking for side sidetrack]")
+        #dispatcher.utter_message(text="[checking for side sidetrack]")
 
         sidetrack_active = tracker.get_slot("sidetrack")
         print(f"sidetrack:{sidetrack_active}")
