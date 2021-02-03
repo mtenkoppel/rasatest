@@ -1,35 +1,64 @@
-version: "2.0"
-
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 61
+  carry_over_slots_to_new_session: true
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-  - abort
-  - talk_to_human
-  - change_num_nights
-  - change_date
-  - change_location
-  - book_hotel
-  - faq
-  - chitchat
-  - inform
-  - reset
-  - yes_talk
-  - no_talk
-  - continue_processing_form
-  - breakfast_yes
-  - breakfast_no
-  - payment_on_location
-  - payment_online
-  - ask_question
-  - bookconfirm_yes
-  - bookconfirm_no
-
-
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- abort:
+    use_entities: true
+- talk_to_human:
+    use_entities: true
+- change_num_nights:
+    use_entities: true
+- change_date:
+    use_entities: true
+- change_location:
+    use_entities: true
+- book_hotel:
+    use_entities: true
+- faq:
+    use_entities: true
+- chitchat:
+    use_entities: true
+- inform:
+    use_entities: true
+- reset:
+    use_entities: true
+- yes_talk:
+    use_entities: true
+- no_talk:
+    use_entities: true
+- continue_processing_form:
+    use_entities: true
+- breakfast_yes:
+    use_entities: true
+- breakfast_no:
+    use_entities: true
+- payment_on_location:
+    use_entities: true
+- payment_online:
+    use_entities: true
+- ask_question:
+    use_entities: true
+- bookconfirm_yes:
+    use_entities: true
+- bookconfirm_no:
+    use_entities: true
 entities:
 - city
 - number
@@ -37,7 +66,6 @@ entities:
 - GPE
 - PERSON
 - email
-
 slots:
   city:
     type: rasa.shared.core.slots.TextSlot
@@ -90,27 +118,18 @@ slots:
     initial_value: false
     auto_fill: false
     influence_conversation: false
-
-
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
+  - text: Hey! How are you?
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
   utter_did_that_help:
-  - text: "Did that help you?"
-
+  - text: Did that help you?
   utter_happy:
-  - text: "Great, carry on!"
-
-
-
+  - text: Great, carry on!
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+  - text: I am a bot, powered by Rasa.
   utter_welcome_part1:
   - text: Hello, I am the digital assistant of Natural Hotels. I can assist with booking a room, answer your questions or other service related inquiries.
   utter_welcome_part2:
@@ -204,9 +223,6 @@ responses:
   - text: Is there anything else I can help you with?
   utter_goodbye:
   - text: Thanks for booking. Have a great stay!
-
-
-
 actions:
 - action_reset
 - action_find_offer
@@ -216,15 +232,13 @@ actions:
 - action_deactive_sidetrack
 - action_active_sidetrack
 - action_check_for_sidetrack
-
-
 forms:
   book_form:
-    city:
-    - entity: GPE
-      type: from_entity
     arrival_date:
     - entity: time
+      type: from_entity
+    city:
+    - entity: GPE
       type: from_entity
     num_guests:
     - entity: number
@@ -253,8 +267,4 @@ forms:
     person_name:
     - entity: PERSON
       type: from_entity
-
-
-session_config:
-  session_expiration_time: 61
-  carry_over_slots_to_new_session: true
+e2e_actions: []
