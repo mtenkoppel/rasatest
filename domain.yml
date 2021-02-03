@@ -63,7 +63,7 @@ entities:
 - PERSON
 - email
 slots:
-  aaacity:
+  aacity:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
@@ -150,7 +150,7 @@ responses:
   - text: Booking is canceled. You may try again if you like.
   utter_start_booking:
   - text: OK. I will ask you some questions about your trip after which a price is shown.
-  utter_ask_city:
+  utter_ask_aacity:
   - text: To what city do you want to travel?
   utter_ask_arrival_date:
   - text: When do you want to stay?
@@ -213,12 +213,13 @@ actions:
 - action_find_offer
 - action_process_offer
 - reset_form_values
+- validate_book_form
 - action_deactive_sidetrack
 - action_active_sidetrack
 - action_check_for_sidetrack
 forms:
   book_form:
-    aaacity:
+    aacity:
     - entity: GPE
       type: from_entity
     arrival_date:
