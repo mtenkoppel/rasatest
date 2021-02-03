@@ -63,7 +63,7 @@ entities:
 - PERSON
 - email
 slots:
-  city:
+  aaacity:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
@@ -213,13 +213,12 @@ actions:
 - action_find_offer
 - action_process_offer
 - reset_form_values
-- validate_book_form
 - action_deactive_sidetrack
 - action_active_sidetrack
 - action_check_for_sidetrack
 forms:
   book_form:
-    city:
+    aaacity:
     - entity: GPE
       type: from_entity
     arrival_date:
