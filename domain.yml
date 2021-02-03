@@ -4,20 +4,11 @@ config:
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: false
+
 intents:
+- session_start:
+    use_entities: true
 - greet:
-    use_entities: true
-- goodbye:
-    use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
-- mood_great:
-    use_entities: true
-- mood_unhappy:
-    use_entities: true
-- bot_challenge:
     use_entities: true
 - abort:
     use_entities: true
@@ -28,6 +19,10 @@ intents:
 - change_date:
     use_entities: true
 - change_location:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
     use_entities: true
 - book_hotel:
     use_entities: true
@@ -59,6 +54,7 @@ intents:
     use_entities: true
 - bookconfirm_no:
     use_entities: true
+
 entities:
 - city
 - number
@@ -119,17 +115,6 @@ slots:
     auto_fill: false
     influence_conversation: false
 responses:
-  utter_greet:
-  - text: Hey! How are you?
-  utter_cheer_up:
-  - image: https://i.imgur.com/nGF1K8f.jpg
-    text: 'Here is something to cheer you up:'
-  utter_did_that_help:
-  - text: Did that help you?
-  utter_happy:
-  - text: Great, carry on!
-  utter_iamabot:
-  - text: I am a bot, powered by Rasa.
   utter_welcome_part1:
   - text: Hello, I am the digital assistant of Natural Hotels. I can assist with booking a room, answer your questions or other service related inquiries.
   utter_welcome_part2:
@@ -158,7 +143,7 @@ responses:
       title: No
     text: Do you want to be redirected to a human agent?
   utter_handover_confirmed:
-  - text: Please wait while a human agent will join this chat in a minute or so.... (End of implementation)
+  - text: Please wait while a human agent will join this chat in a minute or so... (End of implementation)
   utter_handover_aborted:
   - text: That is fine too. (End of implementation)
   utter_confirm_abort:
@@ -232,17 +217,13 @@ actions:
 - action_deactive_sidetrack
 - action_active_sidetrack
 - action_check_for_sidetrack
-- utter_confirm_abort
 forms:
   book_form:
     city:
-    - entity: GPE #GPE
+    - entity: GPE
       type: from_entity
     arrival_date:
     - entity: time
-      type: from_entity
-    city:
-    - entity: GPE
       type: from_entity
     num_guests:
     - entity: number
@@ -271,4 +252,4 @@ forms:
     person_name:
     - entity: PERSON
       type: from_entity
-
+e2e_actions: []
