@@ -270,12 +270,8 @@ forms:
     person_name:
     - entity: PERSON
       type: from_entity
-<<<<<<< HEAD
 
 
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-=======
-e2e_actions: []
->>>>>>> 5dd0a9dd5738a9f637334c97af41dcfc319eb446
