@@ -95,6 +95,16 @@ restart: always
 all of the services run when you reboot your system if you run below command only once
 docker-compose up -d
 
+curl -sSL -o install.sh [https://storage.googleapis.com/rasa-x-releases/](https://storage.googleapis.com/rasa-x-releases/)0.35.1/install.sh
+sudo bash ./install.sh
+
+
+cd /etc/rasa
+wget -qO docker-compose.yml https://storage.googleapis.com/rasa-x-releases/0.35.1/docker-compose.ce.yml
+wget -qO rasa_x_commands.py https://storage.googleapis.com/rasa-x-releases/0.35.1/rasa_x_commands.py
+curl -sSL -o install.sh https://storage.googleapis.com/rasa-x-releases/0.35.1/install.sh
+sudo bash ./install.sh
+
 DOCKER-COMPOSE.YML
 version: "3.4"
 x-database-credentials: &database-credentials

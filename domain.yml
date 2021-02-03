@@ -221,7 +221,7 @@ actions:
 forms:
   book_form:
     city:
-    - entity: GPE
+    - entity: GPE #GPE
       type: from_entity
     arrival_date:
     - entity: time
@@ -256,5 +256,5 @@ forms:
 
 
 session_config:
-  session_expiration_time: 61
+  session_expiration_time: 60
   carry_over_slots_to_new_session: true
