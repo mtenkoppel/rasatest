@@ -48,7 +48,7 @@ class ActionFindOffer(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         # variables for part 1
-        city = tracker.get_slot("city")
+        city = tracker.get_slot("aacity")
         date = tracker.get_slot("arrival_date")
         num_nights = tracker.get_slot("num_nights")
         num_guests = tracker.get_slot("num_guests")
@@ -75,7 +75,7 @@ class ProcessOffer(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         # variables for part 1
-        city = tracker.get_slot("city")
+        city = tracker.get_slot("aacity")
         date = tracker.get_slot("arrival_date")
         num_nights = tracker.get_slot("num_nights")
         num_guests = tracker.get_slot("num_guests")
@@ -130,7 +130,7 @@ class ValidateRestaurantForm(FormValidationAction):
 
         return ["amsterdam", "berlin", "hamburg", "paris", "madrid"]
 
-    def validate_city(
+    def validate_aacity(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
@@ -140,12 +140,12 @@ class ValidateRestaurantForm(FormValidationAction):
         """Validate hotel value."""
         if slot_value.lower() in self.hotels_db():
             # city uttered is within primitive database
-            return {"city": slot_value}
+            return {"aacity": slot_value}
         else:
             # validation failed, set this slot to None so that the
             # user will be asked for the slot again
             dispatcher.utter_message(text=f"Unfortuately, there is not hotel in {slot_value}.")
-            return {"city": None}
+            return {"aacity": None}
 
 # Sets a slot value (sidetrack) stored in rasa to False
 class ActionDeactiveSidetrack(Action):
