@@ -19,7 +19,7 @@ class ActionReset(Action):
 
     def name(self) -> Text:
         return "action_reset"
-    
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
@@ -39,72 +39,6 @@ class CalcPrice:
         return price
 
 
-class ActionFindOffer(Action):
-
-    def name(self) -> Text:
-        return "action_find_offer"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # variables for part 1
-        city = tracker.get_slot("aacity")
-        date = tracker.get_slot("arrival_date")
-        num_nights = tracker.get_slot("num_nights")
-        num_guests = tracker.get_slot("num_guests")
-
-        # code to write date back to something more readble to user
-        date = date[0:date.find("T")]
-        date_time_obj = datetime.strptime(date, '%Y-%m-%d')
-        human_readable_date = date_time_obj.strftime('%d %B %Y')
-
-        price = CalcPrice.total_price(num_nights, num_guests, False)
-        msg = f"A hotel in {city} arriving at {human_readable_date} for {num_nights} nights and {num_guests} guests costs {price} Euro."
-        dispatcher.utter_message(text=msg)
-
-        return []
-
-
-# action_process_offer
-class ProcessOffer(Action):
-
-    def name(self) -> Text:
-        return "action_process_offer"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # variables for part 1
-        city = tracker.get_slot("aacity")
-        date = tracker.get_slot("arrival_date")
-        num_nights = tracker.get_slot("num_nights")
-        num_guests = tracker.get_slot("num_guests")
-
-        # code to write date back to something more readble to user
-        date = date[0:date.find("T")]
-        date_time_obj = datetime.strptime(date, '%Y-%m-%d')
-        human_readable_date = date_time_obj.strftime('%d %B %Y')
-
-        # variables for part 2
-        person_name = tracker.get_slot("person_name")
-        breakfast = tracker.get_slot("breakfast")
-        payment_method = tracker.get_slot("payment_method")
-        email = tracker.get_slot("email")
-
-        breakfast_msg = "" if breakfast else "not"
-        payment_method_msg = "on location" if payment_method else "online"
-
-        price = CalcPrice.total_price(num_nights, num_guests, breakfast)
-
-        msg = f"Summary: Reservation for {person_name} in hotel " \
-              f"{city} from {human_readable_date} for {num_nights} " \
-              f"with {num_guests} guests. Breakfast is {breakfast_msg} included. " \
-              f"Payment is done {payment_method_msg}. Full price is {price} Euro."
-
-        dispatcher.utter_message(text=msg)
-
-        return []
-
 
 class ResetFormValues(Action):
 
@@ -114,7 +48,7 @@ class ResetFormValues(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="[all values resetted: you may reinitiate a booking]")
+        dispatcher.utter_message(text="[debug: all values resetted (user may reinitiate a booking)")
 
         return [AllSlotsReset()]
 
@@ -147,62 +81,112 @@ class ValidateRestaurantForm(FormValidationAction):
             dispatcher.utter_message(text=f"Unfortuately, there is not hotel in {slot_value}.")
             return {"aacity": None}
 
-# Sets a slot value (sidetrack) stored in rasa to False
-class ActionDeactiveSidetrack(Action):
-
-    def name(self) -> Text:
-        return "action_deactive_sidetrack"
-
-    def run(self, dispatcher: CollectingDispatcher,
+    def validate_num_nights(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        print("side track activated")
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """output rich data after num nights have been inputted hotel value."""
 
-        return [SlotSet("sidetrack", False)]
+        # variables for part 1
+        city = tracker.get_slot("aacity")
+        date = tracker.get_slot("arrival_date")
+        num_nights = slot_value
+        num_guests = tracker.get_slot("num_guests")
 
-# Sets a slot value (sidetrack) stored in rasa to True
-class ActionActiveSidetrack(Action):
+        # code to write date back to something more readble to user
+        date = date[0:date.find("T")]
+        date_time_obj = datetime.strptime(date, '%Y-%m-%d')
+        human_readable_date = date_time_obj.strftime('%d %B %Y')
 
-    def name(self) -> Text:
-        return "action_active_sidetrack"
+        price = CalcPrice.total_price(num_nights, num_guests, False)
+        msg = f"A room in our hotel in {city} arriving at {human_readable_date} for {num_nights} nights and {num_guests} guests costs {price} Euro. Here are some images of the room:"
 
-    def run(self, dispatcher: CollectingDispatcher,
+        city_fn = city.lower()
+
+        test_carousel = {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Hotel",
+                    "subtitle": f"The hotel is located right in the centre of {city_fn}. It has a great connection to public transport and a large parking area. The hotel is open 24/7 and you can check-in at any time after 10:00.",
+                    "image_url": f"static/images/{city_fn}.png",
+                    "buttons": []
+                },
+                    {
+                        "title": "Room",
+                        "subtitle": f"The room has a double sized bed and is equiped with all the comfort you need to relax for a great night sleep",
+                        "image_url": f"static/images/hotel1.png",
+                        "buttons": []
+                    },
+                    {
+                        "title": "Great view",
+                        "subtitle": f"Most rooms come with a great view over the city.",
+                        "image_url": f"static/images/hotel2.png",
+                        "buttons": []
+                    },
+                    {
+                        "title": "Bathroom",
+                        "subtitle": f"A luxury bathroom where you can spend hours. Our towels service delivers you new towels every day.",
+                        "image_url": f"static/images/hotel3.png",
+                        "buttons": []
+                    },
+                    {
+                        "title": "Small details",
+                        "subtitle": f"Many details make you feel right at home: all our bathrooms come with 4 kinds of shampoo and soap.",
+                        "image_url": f"static/images/hotel4.png",
+                        "buttons": []
+                    }
+                ]
+            }
+        }
+
+        dispatcher.utter_message(text=msg)
+        channel = tracker.get_latest_input_channel()
+        print(channel)
+        if channel != "cmdline":
+            dispatcher.utter_message(attachment=test_carousel)
+        return {"num_nights": slot_value}
+
+    def validate_person_name(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="[active sidetrack]")
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        # variables for part 1
+        city = tracker.get_slot("aacity")
+        date = tracker.get_slot("arrival_date")
+        num_nights = tracker.get_slot("num_nights")
+        num_guests = tracker.get_slot("num_guests")
 
-        return [SlotSet("sidetrack", True)]
+        # code to write date back to something more readble to user
+        date = date[0:date.find("T")]
+        date_time_obj = datetime.strptime(date, '%Y-%m-%d')
+        human_readable_date = date_time_obj.strftime('%d %B %Y')
+
+        # variables for part 2
+        person_name = slot_value
+        breakfast = tracker.get_slot("breakfast")
+        payment_method = tracker.get_slot("payment_method")
+        email = tracker.get_slot("email")
+
+        breakfast_msg = "" if breakfast else "not"
+        payment_method_msg = "on location" if payment_method else "online"
+
+        price = CalcPrice.total_price(num_nights, num_guests, breakfast)
+
+        msg = f"Summary: Reservation for {person_name} in hotel " \
+              f"{city} from {human_readable_date} for {num_nights} " \
+              f"with {num_guests} guests. Breakfast is {breakfast_msg} included. " \
+              f"Payment is done {payment_method_msg}. Full price is {price} Euro."
+
+        dispatcher.utter_message(text=msg)
 
 
-# Depending on the state of sidetrack put the conversation to a different state
-class ActionCheckForSidetrack(Action):
+        return{"person_name": slot_value}
 
-    def name(self) -> Text:
-        return "action_check_for_sidetrack"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        #dispatcher.utter_message(text="[checking for side sidetrack]")
-
-        sidetrack_active = tracker.get_slot("sidetrack")
-        print(f"sidetrack:{sidetrack_active}")
-
-        active_loop = tracker.active_loop
-
-        if len(active_loop) == 0:
-            if sidetrack_active:
-                # there is no form active, but sidetrack is True. There is only a single location where this can be
-                print("initial question should be activated again")
-                return [FollowupAction(name="utter_how_to_proceed")]
-        else:
-            # A form is active
-            if sidetrack_active:
-                # sidetrack is active, so it must have been called from process_book
-                print("returning to sequence before")
-                return [Form("process_book")]
-            else:
-                # This is the regular flow. No need to intervene since user did not request a side conversation
-                print("do not interrupt")
-                return []

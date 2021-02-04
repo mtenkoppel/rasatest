@@ -1,26 +1,35 @@
 version: "2.0"
 
 rules:
-
-  - rule: User enters the chat and a subtle push in right direction
+# always greet
+  - rule: user says hi again
     steps:
     - intent: greet
+    - action: utter_welcome_part2
+# respond to user connecting to chat. start_chat is pushed by the front-end ui
+  - rule: User enters the chat and a subtle push in right direction
+    steps:
+    - intent: start_chat
     - action: utter_welcome_part1
     - action: utter_welcome_part2
-
+# if the user asks questions
   - rule: respond to FAQs type questions
     steps:
     - intent: faq
     - action: utter_faq
-    - action: action_check_for_sidetrack
-
+# if the user is asking random questions
   - rule: respond to chitchat
     steps:
     - intent: chitchat
     - action: utter_chitchat
-    - action: action_check_for_sidetrack
 
-# BOOKING PART 1 - ENTERING BASIC ITERNARY DATA
+# if the predictions are too low, it should output something
+  - rule: the nlu model has low probability on the inputted text
+    steps:
+    - intent: nlu_fallback
+    - action: utter_please_rephrase
+
+# BOOKING FORM
 
 ## ACTIVATE:
   - rule: activate booking form
@@ -30,7 +39,17 @@ rules:
       - action: book_form
       - active_loop: book_form
 
-## ROBUST AGAINST CHITCHAT:
+## ROBUST AGAINST BOGUS INPUT:
+  - rule: the nlu model has low probability on the inputted text
+    condition:
+    - active_loop: book_form
+    steps:
+    - intent: nlu_fallback
+    - action: utter_please_rephrase
+    - action: book_form
+    - active_loop: book_form
+
+  ## ROBUST AGAINST CHITCHAT:
   - rule: The user is in the booking form and wants to make chitchat
     condition:
     # Condition that form is active.
@@ -69,7 +88,6 @@ rules:
     - action: action_deactivate_loop
     - active_loop: null
     - action: reset_form_values
-
 
 ## SUBMIT (after submit the
   - rule: submit book form
@@ -78,96 +96,7 @@ rules:
     steps:
       - action: book_form
       - active_loop: null
-      - action: action_find_offer
-      - action: utter_how_to_proceed
-
-# BOOKING PART 2
-## ACTIVATE
-  - rule: the user has inputted basic hotel data and has received an offer. He has no questions and wants to process further
-    steps:
-      - intent: continue_processing_form
-      - action: process_book
-      - active_loop: process_book
-
-## ROBUST AGAINST CHITCHAT:
-  - rule: The user is in the booking form and wants to make chitchat
-    condition:
-    # Condition that form is active.
-    - active_loop: process_book
-    steps:
-    # This unhappy path handles the case of an intent `chitchat`.
-    - intent: chitchat
-    - action: utter_chitchat
-    # Return to form after handling the `chitchat` intent
-    - action: process_book
-    - active_loop: process_book
-
-## ROBUST AGAINST QUESTIONS THE USER MIGHT HAVE:
-  - rule: The user is in the booking form and has a question to the hotel
-    condition:
-    # Condition that form is active.
-    - active_loop: process_book
-    steps:
-    # This unhappy path handles the case of an intent `faq`.
-    - intent: faq
-    - action: utter_faq
-    # Return to form after handling the `faq` intent
-    - action: process_book
-    - active_loop: process_book
-
-
-
-## ALLOW FOR CANCELING THE FORM
-  - rule: The user is in the booking form and wants to abort the process
-    condition:
-    # Condition that form is active.
-    - active_loop: process_book
-    steps:
-    # This unhappy path handles the case of an intent `chitchat`.
-    - intent: abort
-    # After the user expresses abort, we stop the hotel booking form
-    - action: utter_confirm_abort
-    - action: action_deactivate_loop
-    - active_loop: null
-
-## SUBMITTING
-  - rule: user finished part two form
-    condition:
-      - active_loop: process_book
-    steps:
-    - action: process_book
-    - active_loop: null
-    - action: action_process_offer
-    - action: utter_confirm_process
-
-
-  - rule: user confirm the final booking
-    steps:
-    - intent: bookconfirm_yes
-    - action: utter_bookconfirmed
-    - action: reset_form_values
-    - action: utter_welcome_part2
-
-  - rule: cancel final bookin
-    steps:
-    - intent: bookconfirm_no
-    - action: utter_booknotconfirmed
-    - action: reset_form_values
-    - action: utter_welcome_part2
-
-## GENERAL INTENTS
-
-# FOCUS
-# FOCUS
-# activate asking a question
-  - rule: user clicks button that he has a question to the hotel
-    condition:
-      - active_loop: process_book
-    steps:
-    - intent: ask_question
-    - active_loop: null
-    - action: action_active_sidetrack
-    - action: utter_ask_your_question
+      - action: utter_confirm_process
 
 # reset chatbot
   - rule: user wants to reset and start over

@@ -6,24 +6,23 @@ session_config:
   carry_over_slots_to_new_session: false
 
 intents:
-- session_start:
+- start_chat:
     use_entities: true
 - greet:
     use_entities: true
 - abort:
     use_entities: true
-- talk_to_human:
+- out_of_scope:
     use_entities: true
+- talk_to_human
 - change_num_nights:
     use_entities: true
 - change_date:
     use_entities: true
 - change_location:
     use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
+- affirm
+- deny
 - book_hotel:
     use_entities: true
 - faq:
@@ -40,6 +39,8 @@ intents:
     use_entities: true
 - continue_processing_form:
     use_entities: true
+- ask_question:
+    use_entities: true
 - breakfast_yes:
     use_entities: true
 - breakfast_no:
@@ -48,12 +49,11 @@ intents:
     use_entities: true
 - payment_online:
     use_entities: true
-- ask_question:
-    use_entities: true
 - bookconfirm_yes:
     use_entities: true
 - bookconfirm_no:
     use_entities: true
+
 
 entities:
 - city
@@ -94,6 +94,11 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: false
+  confirm_checkout:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   breakfast:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -109,14 +114,24 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: false
+  confirm_purchase:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   sidetrack:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: false
     auto_fill: false
     influence_conversation: false
+
 responses:
+  utter_please_rephrase:
+  - text: I don't understand your phrase. Try rephrasing or type talk to a human if you want to connect to one of our agents.
+  utter_out_of_scope:
+  - text: I cannot help with that. Type talk to a human if you want to connect to one of our agents.
   utter_welcome_part1:
-  - text: Hello, I am the digital assistant of Natural Hotels. I can assist with booking a room, answer your questions or other service related inquiries.
+  - text: Hello, I am the digital assistant of Natural Hotels. I can assist with booking a room or answer your questions.
   utter_welcome_part2:
   - text: How can I help you?
   utter_resetting:
@@ -125,6 +140,8 @@ responses:
   - text: I can assist with booking a room, answer your questions or other service related inquiries.
   utter_chitchat/what_is_your_name:
   - text: I don't have a name. There is no need for you to think I have a personality. I am here to help you efficiently with tasks.
+  utter_chitchat/are_you_a_bot:
+  - text: I am bot. I can assist with basic tasks. Should you require a human, simply type out talk to a human to talk to one of our agents.
   utter_faq/is_there_free_wifi:
   - text: WiFi is available in every room for free. And it is fast. So bring your laptop, tablets and all other connected devices so you feel right at home.
   utter_faq/what_are_opening_hours:
@@ -149,22 +166,29 @@ responses:
   utter_confirm_abort:
   - text: Booking is canceled. You may try again if you like.
   utter_start_booking:
-  - text: OK. I will ask you some questions about your trip after which a price is shown.
+  - text: Ok. I will ask you some questions about your trip and then I'll show you a price.
   utter_ask_aacity:
   - text: To what city do you want to travel?
   utter_ask_arrival_date:
-  - text: When do you want to stay?
+  - text: When do you want to arrive?
   utter_ask_num_nights:
   - text: How many nights?
   utter_ask_num_guests:
   - text: How many guests?
+  utter_ask_confirm_checkout:
+  - buttons:
+    - payload: /affirm
+      title: book
+    - payload: /abort
+      title: abort
+    text: Do you want to proceed with the booking?
   utter_how_to_proceed:
   - buttons:
     - payload: /continue_processing_form
       title: Continue booking
     - payload: /ask_question
       title: I have a question
-    text: Is there something you would like to know about the hotel or room before booking it?
+    text: Is there something else you would like to know about the hotel or room before booking it?
   utter_ask_your_question:
   - text: What is your question?
   utter_submit:
@@ -175,12 +199,10 @@ responses:
   - text: What is last name of the guest who will check in?
   utter_ask_breakfast:
   - buttons:
-    - payload: /breakfast_yes
+    - payload: /affirm
       title: Yes
-    - payload: /breakfast_no
+    - payload: /deny
       title: No
-    - payload: /ask_question
-      title: I have a question
     text: Do you want breakfast?
   utter_ask_email:
   - text: What is your email address?
@@ -190,14 +212,19 @@ responses:
       title: On location
     - payload: /payment_online
       title: Online
-    - payload: /ask_question
-      title: I have a question
     text: How do you want to pay?
+  utter_ask_confirm_purchase:
+   - buttons:
+       - payload: /affirm
+         title: Yes
+       - payload: /abort
+         title: Abort
+     text: Do you want to book?
   utter_confirm_process:
   - buttons:
-    - payload: /bookconfirm_yes
+    - payload: /affirm
       title: Yes
-    - payload: /bookconfirm_no
+    - payload: /deny
       title: No
     text: Do you want to book?
   utter_bookconfirmed:
@@ -210,13 +237,8 @@ responses:
   - text: Thanks for booking. Have a great stay!
 actions:
 - action_reset
-- action_find_offer
-- action_process_offer
 - reset_form_values
 - validate_book_form
-- action_deactive_sidetrack
-- action_active_sidetrack
-- action_check_for_sidetrack
 forms:
   book_form:
     aacity:
@@ -231,12 +253,18 @@ forms:
     num_nights:
     - entity: number
       type: from_entity
-  process_book:
-    breakfast:
-    - intent: breakfast_yes
+    confirm_checkout:
+    - intent: affirm
       type: from_intent
       value: true
-    - intent: breakfast_no
+    - intent: abort
+      type: from_intent
+      value: false
+    breakfast:
+    - intent: affirm
+      type: from_intent
+      value: true
+    - intent: deny
       type: from_intent
       value: false
     email:
@@ -252,4 +280,12 @@ forms:
     person_name:
     - entity: PERSON
       type: from_entity
+    confirm_purchase:
+    - intent: affirm
+      type: from_intent
+      value: true
+    - intent: abort
+      type: from_intent
+      value: false
+
 e2e_actions: []

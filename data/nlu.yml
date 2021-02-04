@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -65,6 +64,15 @@ nlu:
     - What cities can I book?
     - What city can I book?
 
+- intent: chitchat/are_you_a_bot
+  examples: |
+    - are you a bot?
+    - is this a bot?
+    - are you a robot?
+    - are your programmed?
+    - bot?
+
+
 - intent: chitchat/what_is_your_name
   examples: |
     - what is your name?
@@ -75,6 +83,7 @@ nlu:
 - intent: reset
   examples: |
     - reset
+    - reset the bot
 - intent: book_hotel
   examples: |
     - I want to book a hotel
@@ -86,18 +95,33 @@ nlu:
     - hotel [Amsterdam](city)
     - hotel [Berlin](city)
     - hotel
-    - hotel [Berlin](city) for today and 2 nights
-    - hotel [Berlin](city) for 27 july and four nights
+    - hotel [Berlin](city) for [today](date) and [2](num_nights) nights
+    - hotel [Berlin](city) for [27 july](date) and [four](num_nights) nights
     - hotel [Berlin](city) for 27 july
+    - how much is a hotel in [Paris](city)
+    - I want to book a hotel in [Berlin](city) for [27 july](date) and [four](num_nights) nights
+    - I want to book a hotel in [Berlin](city) for [27 july](date) and [four](num_nights) nights and [1](num_guests)
+    - Hotel in [Berlin](city) for [27 july](date) and [4](num_nights) nights and [one](num_guests)
+    - How much is a hotel in [Berlin](city)?
+    - How much is a room in [Berlin](city)?
 - intent: affirm
   examples: |
     - yes
     - yes, please
     - yup
+    - talk
+    - yes talk
+    - book
+    - continue
+    - proceed
 - intent: deny
   examples: |
     - no don't
     - no
+    - don't talk
+    - no
+    - nope
+    - definately not
 - intent: abort
   examples: |
     - I want to stop the booking
@@ -157,3 +181,48 @@ nlu:
     - two nights
     - for 5 nights
     - 5 nights
+- intent: out_of_scope
+  examples: |
+    - I want to order food
+    - What is 2+2
+    - Who's the US president
+    - What is the address of the hotel?
+    - Location of the hotel?
+    - Can I rent a car?
+    - Is there free parking?
+
+
+- intent: continue_processing_form
+  examples: |
+    - continue booking
+    - book
+    - continue
+    - proceed
+    - i want this
+
+
+#    use_entities: true
+#- intent: yes_talk
+#  examples: |
+#    - yes talk
+#    - talk
+#    - yes
+
+#- no_talk:
+#    use_entities: true
+#- continue_processing_form:
+#    use_entities: true
+#- ask_question:
+#    use_entities: true
+#- breakfast_yes:
+#    use_entities: true
+#- breakfast_no:
+#    use_entities: true
+#- payment_on_location:
+#    use_entities: true
+#- payment_online:
+#    use_entities: true
+#- bookconfirm_yes:
+#    use_entities: true
+#- bookconfirm_no:
+#    use_entities: true
