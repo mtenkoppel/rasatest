@@ -81,7 +81,7 @@ class ValidateRestaurantForm(FormValidationAction):
             dispatcher.utter_message(text=f"Unfortuately, there is not hotel in {slot_value}.")
             return {"aacity": None}
 
-    def validate_num_nights(
+    def validate_ddnum_nights(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
@@ -92,9 +92,9 @@ class ValidateRestaurantForm(FormValidationAction):
 
         # variables for part 1
         city = tracker.get_slot("aacity")
-        date = tracker.get_slot("arrival_date")
+        date = tracker.get_slot("bbarrival_date")
         num_nights = slot_value
-        num_guests = tracker.get_slot("num_guests")
+        num_guests = tracker.get_slot("ccnum_guests")
 
         # code to write date back to something more readble to user
         date = date[0:date.find("T")]
@@ -151,7 +151,7 @@ class ValidateRestaurantForm(FormValidationAction):
             dispatcher.utter_message(attachment=test_carousel)
         return {"num_nights": slot_value}
 
-    def validate_person_name(
+    def validate_iiperson_name(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
@@ -160,9 +160,9 @@ class ValidateRestaurantForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         # variables for part 1
         city = tracker.get_slot("aacity")
-        date = tracker.get_slot("arrival_date")
-        num_nights = tracker.get_slot("num_nights")
-        num_guests = tracker.get_slot("num_guests")
+        date = tracker.get_slot("bbarrival_date")
+        num_nights = tracker.get_slot("ddnum_nights")
+        num_guests = tracker.get_slot("ccnum_guests")
 
         # code to write date back to something more readble to user
         date = date[0:date.find("T")]
@@ -171,9 +171,9 @@ class ValidateRestaurantForm(FormValidationAction):
 
         # variables for part 2
         person_name = slot_value
-        breakfast = tracker.get_slot("breakfast")
-        payment_method = tracker.get_slot("payment_method")
-        email = tracker.get_slot("email")
+        breakfast = tracker.get_slot("ffbreakfast")
+        payment_method = tracker.get_slot("hhpayment_method")
+        email = tracker.get_slot("ggemail")
 
         breakfast_msg = "" if breakfast else "not"
         payment_method_msg = "on location" if payment_method else "online"
@@ -181,7 +181,7 @@ class ValidateRestaurantForm(FormValidationAction):
         price = CalcPrice.total_price(num_nights, num_guests, breakfast)
 
         msg = f"Summary: Reservation for {person_name} in hotel " \
-              f"{city} from {human_readable_date} for {num_nights} " \
+              f"{city} from {human_readable_date} for {num_nights} nights " \
               f"with {num_guests} guests. Breakfast is {breakfast_msg} included. " \
               f"Payment is done {payment_method_msg}. Full price is {price} Euro."
 

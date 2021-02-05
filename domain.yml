@@ -68,53 +68,53 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  arrival_date:
+  bbarrival_date:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
     max_value: 1.0
     min_value: 0.0
-  num_nights:
+  ddnum_nights:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
     max_value: 1.0
     min_value: 0.0
-  num_guests:
+  ccnum_guests:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
     max_value: 1.0
     min_value: 0.0
-  person_name:
+  iiperson_name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  confirm_checkout:
+  eeconfirm_checkout:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  breakfast:
+  ffbreakfast:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  payment_method:
+  hhpayment_method:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  email:
+  ggemail:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
     influence_conversation: false
-  confirm_purchase:
+  jjconfirm_purchase:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: false
@@ -169,13 +169,13 @@ responses:
   - text: Ok. I will ask you some questions about your trip and then I'll show you a price.
   utter_ask_aacity:
   - text: To what city do you want to travel?
-  utter_ask_arrival_date:
+  utter_ask_bbarrival_date:
   - text: When do you want to arrive?
-  utter_ask_num_nights:
+  utter_ask_ddnum_nights:
   - text: How many nights?
-  utter_ask_num_guests:
+  utter_ask_ccnum_guests:
   - text: How many guests?
-  utter_ask_confirm_checkout:
+  utter_ask_eeconfirm_checkout:
   - buttons:
     - payload: /affirm
       title: Yes
@@ -195,25 +195,25 @@ responses:
   - text: Form submitted
   utter_slots_values:
   - text: City user wants to go to is {city}, {arrival_date}, {num_nights}
-  utter_ask_person_name:
+  utter_ask_iiperson_name:
   - text: What is last name of the guest who will check in?
-  utter_ask_breakfast:
+  utter_ask_ffbreakfast:
   - buttons:
     - payload: /affirm
       title: Yes
     - payload: /deny
       title: No
     text: Do you want breakfast?
-  utter_ask_email:
+  utter_ask_ggemail:
   - text: What is your email address?
-  utter_ask_payment_method:
+  utter_ask_hhpayment_method:
   - buttons:
     - payload: /payment_on_location
       title: On location
     - payload: /payment_online
       title: Online
     text: How do you want to pay?
-  utter_ask_confirm_purchase:
+  utter_ask_jjconfirm_purchase:
    - buttons:
        - payload: /affirm
          title: Yes
@@ -228,7 +228,7 @@ responses:
       title: No
     text: Do you want to book?
   utter_bookconfirmed:
-  - text: Hotel is booked. A confirmation has been sent to {email}
+  - text: Hotel is booked. A confirmation has been sent to {ggemail}
   utter_booknotconfirmed:
   - text: Your booking has been stopped.
   utter_anything_else:
@@ -244,43 +244,43 @@ forms:
     aacity:
     - entity: GPE
       type: from_entity
-    arrival_date:
+    bbarrival_date:
     - entity: time
       type: from_entity
-    num_guests:
+    ccnum_guests:
     - entity: number
       type: from_entity
-    num_nights:
+    ddnum_nights:
     - entity: number
       type: from_entity
-    confirm_checkout:
+    eeconfirm_checkout:
     - intent: affirm
       type: from_intent
       value: true
     - intent: abort
       type: from_intent
       value: false
-    breakfast:
+    ffbreakfast:
     - intent: affirm
       type: from_intent
       value: true
     - intent: deny
       type: from_intent
       value: false
-    email:
+    ggemail:
     - entity: email
       type: from_entity
-    payment_method:
+    hhpayment_method:
     - intent: payment_on_location
       type: from_intent
       value: true
     - intent: payment_online
       type: from_intent
       value: true
-    person_name:
+    iiperson_name:
     - entity: PERSON
       type: from_entity
-    confirm_purchase:
+    jjconfirm_purchase:
     - intent: affirm
       type: from_intent
       value: true
