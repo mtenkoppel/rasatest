@@ -72,8 +72,8 @@ cd /etc/rasa
 sudo python3 rasa_x_commands.py create --update admin me ueRA7xL7ei7TISgOCJ5R
 
 BUILDING A DOCKER IMAGE:
-docker build . -t mauricetk/rasa-custom-actions-booking-assistant:custom5
-docker push mauricetk/rasa-custom-actions-booking-assistant:custom5
+docker build . -t mauricetk/rasa-custom-actions-booking-assistant:custom6
+docker push mauricetk/rasa-custom-actions-booking-assistant:custom6
 
 docker build . -t mauricetk/webservice:5
 docker push mauricetk/webservice:5
