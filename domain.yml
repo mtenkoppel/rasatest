@@ -129,7 +129,7 @@ responses:
   utter_please_rephrase:
   - text: I don't understand your phrase. Try rephrasing or type talk to a human if you want to connect to one of our agents.
   utter_out_of_scope:
-  - text: I cannot help with that. Type talk to a human if you want to connect to one of our agents.
+  - text: This has not been implemented.
   utter_welcome_part1:
   - text: Hello, I am the digital assistant of Natural Hotels. I can assist with booking a room or answer your questions.
   utter_welcome_part2:
@@ -178,7 +178,7 @@ responses:
   utter_ask_confirm_checkout:
   - buttons:
     - payload: /affirm
-      title: book
+      title: Yes
     - payload: /abort
       title: abort
     text: Do you want to proceed with the booking?
@@ -234,7 +234,7 @@ responses:
   utter_anything_else:
   - text: Is there anything else I can help you with?
   utter_goodbye:
-  - text: Thanks for booking. Have a great stay!
+  - text: Bye!
 actions:
 - action_reset
 - reset_form_values

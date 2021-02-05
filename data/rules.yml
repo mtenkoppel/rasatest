@@ -96,7 +96,8 @@ rules:
     steps:
       - action: book_form
       - active_loop: null
-      - action: utter_confirm_process
+      - action: utter_bookconfirmed
+      - action: utter_anything_else
 
 # reset chatbot
   - rule: user wants to reset and start over
@@ -104,5 +105,11 @@ rules:
       - intent: reset
       - action: utter_resetting
       - action: action_reset
+
+# robust against questions out of scope
+  - rule: out of scope
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
 
 

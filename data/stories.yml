@@ -16,6 +16,11 @@ stories:
     - intent: deny
     - action: utter_handover_aborted
 
+  - story: user says goodbye
+    steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
 
 
 

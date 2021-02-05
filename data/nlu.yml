@@ -1,5 +1,14 @@
 version: "2.0"
 nlu:
+- intent: goodbye
+  examples: |
+    - goodbye
+    - good bye
+    - bye bye
+    - cya
+    - see you
+    - thanks for your help
+    - auf wiener schnitzel
 - intent: greet
   examples: |
     - Hi
@@ -190,39 +199,17 @@ nlu:
     - Location of the hotel?
     - Can I rent a car?
     - Is there free parking?
-
-
-- intent: continue_processing_form
+- intent: payment_on_location
   examples: |
-    - continue booking
-    - book
-    - continue
-    - proceed
-    - i want this
+    - on location
+    - when I am there
+    - at the desk
+    - location
+- intent: payment_online
+  examples: |
+    - online
+    - paypal
+    - right now
+    - Online
 
 
-#    use_entities: true
-#- intent: yes_talk
-#  examples: |
-#    - yes talk
-#    - talk
-#    - yes
-
-#- no_talk:
-#    use_entities: true
-#- continue_processing_form:
-#    use_entities: true
-#- ask_question:
-#    use_entities: true
-#- breakfast_yes:
-#    use_entities: true
-#- breakfast_no:
-#    use_entities: true
-#- payment_on_location:
-#    use_entities: true
-#- payment_online:
-#    use_entities: true
-#- bookconfirm_yes:
-#    use_entities: true
-#- bookconfirm_no:
-#    use_entities: true
