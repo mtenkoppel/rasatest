@@ -17,6 +17,7 @@ nlu:
     - Good day
     - Good morning
     - hi
+    - Hello
 - intent: faq/what_can_you_do
   examples: |
     - what can you help me with?
@@ -72,7 +73,6 @@ nlu:
     - Where are your best hotels?
     - What cities can I book?
     - What city can I book?
-
 - intent: chitchat/are_you_a_bot
   examples: |
     - are you a bot?
@@ -80,15 +80,12 @@ nlu:
     - are you a robot?
     - are your programmed?
     - bot?
-
-
 - intent: chitchat/what_is_your_name
   examples: |
     - what is your name?
     - What are you called?
     - May I know your name?
     - How can I call you?
-
 - intent: reset
   examples: |
     - reset
@@ -128,7 +125,6 @@ nlu:
     - no don't
     - no
     - don't talk
-    - no
     - nope
     - definately not
 - intent: abort
@@ -211,5 +207,3 @@ nlu:
     - paypal
     - right now
     - Online
-
-
