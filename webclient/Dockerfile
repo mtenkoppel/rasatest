@@ -18,6 +18,7 @@ RUN pip install -r requirements.txt
 # Copy actions folder to working directory
 COPY . /app
 COPY ./templates /app/templates
+COPY ./static /app/static
 
 ENTRYPOINT ["python"]
 

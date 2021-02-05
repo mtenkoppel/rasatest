@@ -72,15 +72,20 @@ cd /etc/rasa
 sudo python3 rasa_x_commands.py create --update admin me ueRA7xL7ei7TISgOCJ5R
 
 BUILDING A DOCKER IMAGE:
-docker build . -t mauricetk/rasa-custom-actions-booking-assistant:custom4
-docker push mauricetk/rasa-custom-actions-booking-assistant:custom4
+docker build . -t mauricetk/rasa-custom-actions-booking-assistant:custom5
+docker push mauricetk/rasa-custom-actions-booking-assistant:custom5
 
-docker build . -t mauricetk/webservice:1
-docker push mauricetk/webservice:1
+docker build . -t mauricetk/webservice:5
+docker push mauricetk/webservice:5
+
+docker build . -t mauricetk/rasa-server:1
+docker push mauricetk/rasa-server:1
 
 RUNNING A DOCKER IMAGE ON LOCAL MACHINE:
-docker run -p 5055:5055 mauricetk/rasa-custom-actions-booking-assistant:custom2
-docker run -p 5000:5000 mauricetk/webservice:2
+docker run -p 5055:5055 mauricetk/rasa-custom-actions-booking-assistant:custom5
+docker run -p 5000:5000 mauricetk/webservice:3
+docker run -p 5500:5500 mauricetk/rasa-server:1
+
 
 TESTING IF THE LOCAL DOCKER IMAGE WORKS:
 curl -XPOST http://localhost:5055/webhooks/rest/webhook \
